@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MvcMovie.Models.VideoGame>
+﻿@model PaginatedList<MvcMovie.Models.VideoGame>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Developer)
+                Developer
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
+                Release Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genre)
+                Genre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Platform)
+                Platform
             </th>
             <th></th>
         </tr>
@@ -57,3 +57,16 @@
 }
     </tbody>
 </table>
+
+<ul class="pagination">
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item">
+            <a class="page-link"
+           asp-action="Index"
+           asp-route-pageNumber="@i">
+                @i
+            </a>
+        </li>
+    }
+</ul>

@@ -20,9 +20,14 @@ namespace MvcMovie.Controllers
         }
 
         // GET: VideoGames
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-              return View(await _context.VideoGame.ToListAsync());
+            var games = from g in _context.VideoGame
+                         select g;
+
+            int pageSize = 3;
+
+            return View(await PaginatedList<VideoGame>.CreateAsync(games.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: VideoGames/Details/5
